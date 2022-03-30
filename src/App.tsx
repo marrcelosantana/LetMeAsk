@@ -1,15 +1,10 @@
-import { useState } from "react";
+import { Home } from "./pages/Home";
+import './styles/global.scss';
 
 function App() {
-  const[counter, setCounter] = useState(0);
 
-  function increment(){
-    setCounter(counter + 1);
-  }
   return (
-    <div className="App">
-      <button onClick={increment}>Incrementar {counter}</button>
-    </div>
+    <Home/>
   );
 }
 
