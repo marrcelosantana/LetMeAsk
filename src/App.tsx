@@ -6,10 +6,9 @@ function App() {
   function increment(){
     setCounter(counter + 1);
   }
-
   return (
     <div className="App">
-      <button onClick={increment}>{counter}</button>
+      <button onClick={increment}>Incrementar {counter}</button>
     </div>
   );
 }
