@@ -3,11 +3,9 @@ import logoImg from "../assets/images/logo.svg";
 import googleIconImg from "../assets/images/google-icon.svg";
 import { Button } from "../components/Button";
 import { useHistory } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from '../contexts/AuthContext';
+import { useAuth } from "../hooks/useAuth";
 
 import "./../styles/auth.scss";
-import { useAuth } from "../hooks/useAuth";
 
 export function Home() {
   const history = useHistory();
