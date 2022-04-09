@@ -1,13 +1,13 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import logoImg from "../assets/images/logo.svg";
-import { Button } from "../components/Button";
-import { RoomCode } from "../components/RoomCode";
-import { useAuth } from "../hooks/useAuth";
+import logoImg from "../../assets/images/logo.svg";
+import { useAuth } from "../../hooks/useAuth";
 import toast, { Toaster } from 'react-hot-toast';
-import { database } from "../services/firebase";
+import { database } from "../../services/firebase";
+import { Button } from "../../components/Button";
+import { RoomCode } from "../../components/RoomCode";
 
-import "../styles/room.scss";
+import "./styles.scss";
 
 type FirebaseQuestions = Record<string, {
   author: {
@@ -55,14 +55,14 @@ export function Room() {
         return {
           id: key,
           content: value.content,
-          ahutor: value.author,
+          author: value.author,
           isHighlighted: value.isHighlighted,
           isAnswered: value.isAnswered
         }
       })
 
       setTitle(databaseRoom.title);
-      // setQuestions(parsedQuestions);
+      setQuestions(parsedQuestions);
     })
   }, [roomId])
 
