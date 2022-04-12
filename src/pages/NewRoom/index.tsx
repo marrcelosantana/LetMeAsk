@@ -45,10 +45,10 @@ export function NewRoom() {
           <h2>Crie uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
             <input
-              type="text"
+              type="text" 
               placeholder="Nome da sala"
+              onChange={event => setNewRoom(event.target.value)}
               value={newRoom}
-              onChange={(event) => setNewRoom(event.target.value)}
               required
             />
             <Button type="submit">Criar sala</Button>
