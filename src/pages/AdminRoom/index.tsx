@@ -11,7 +11,6 @@ import { useRoom } from "../../hooks/useRoom";
 
 import "./styles.scss";
 
-
 type RoomParams = {
   id: string;
 };
