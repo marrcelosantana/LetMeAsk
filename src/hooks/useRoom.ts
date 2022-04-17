@@ -22,7 +22,6 @@ type FirebaseQuestions = Record<string, {
   isHighlighted: boolean;
 }>
 
-
 export function useRoom(roomId: string){
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
