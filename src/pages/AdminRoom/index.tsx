@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
-import logoImg from "../../assets/images/logo.svg";
 import { Button } from "../../components/Button";
 import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
 import { useRoom } from "../../hooks/useRoom";
+import { database } from "../../services/firebase";
+import logoImg from "../../assets/images/logo.svg";
+import deleteImg from "../../assets/images/delete.svg";
 
 import "./styles.scss";
 
@@ -13,10 +15,15 @@ type RoomParams = {
 
 export function AdminRoom() {
   // const { user } = useAuth();
-  const params = useParams<RoomParams>()
+  const params = useParams<RoomParams>();
   const roomId = params.id;
-  
-  const { title, questions } = useRoom(roomId)
+  const { title, questions } = useRoom(roomId);
+
+  async function handleDeleteQuestion(questionId: string){
+    if(window.confirm('Tem certeza que deseja excluir esta pergunta?')){
+      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
+    }
+  }
 
   return (
     <div id="page-room">
@@ -36,9 +43,17 @@ export function AdminRoom() {
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
         <div className="question-list">
-          {questions.map(question => {
-            return(
-              <Question content={question.content} author={question.author} key={question.id}/>
+          {questions.map((question) => {
+            return (
+              <Question
+                content={question.content}
+                author={question.author}
+                key={question.id}
+              >
+                <button>
+                  <img src={deleteImg} alt="Remover pergunta" onClick={() => handleDeleteQuestion(question.id)}/>
+                </button>
+              </Question>
             );
           })}
         </div>
