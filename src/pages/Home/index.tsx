@@ -6,9 +6,9 @@ import googleIconImg from "../../assets/images/google-icon.svg";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { database } from "../../services/firebase";
+import { Button } from "../../components/Button";
 
 import "../../styles/auth.scss";
-import { Button } from "../../components/Button";
 
 export function Home() {
   const history = useHistory();
@@ -33,6 +33,13 @@ export function Home() {
 
     if(!roomRef.exists()) {
       toast.error("Room does not exists!");
+      return;
+    }
+
+    if(roomRef.val().endedAt){
+      toast("Room already closed!", {
+        icon: '😥'
+      });
       return;
     }
 
