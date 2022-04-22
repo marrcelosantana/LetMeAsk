@@ -19,7 +19,7 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { title, questions } = useRoom(roomId);
-  const [openModal, setOpenModal] = useState(false);
+  const [isopenModal, setOpenModal] = useState(false);
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -60,7 +60,7 @@ export function AdminRoom() {
                 <DeleteQuestionModal
                   roomId={roomId}
                   questionId={question.id}
-                  isOpenModal={openModal}
+                  isOpenModal={isopenModal}
                   closeModal={handleCloseModal}
                 />
               </Question>
