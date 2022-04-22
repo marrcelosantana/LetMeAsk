@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
+import Modal from "react-modal";
 import { Button } from "../../components/Button";
 import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
@@ -18,11 +20,19 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { title, questions } = useRoom(roomId);
+  const [openModal, setOpenModal] = useState(false);
 
-  async function handleDeleteQuestion(questionId: string){
-    if(window.confirm('Tem certeza que deseja excluir esta pergunta?')){
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
-    }
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
+
+  async function handleDeleteQuestion(questionId: string) {
+    database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
+    await setOpenModal(false);
   }
 
   return (
@@ -50,9 +60,25 @@ export function AdminRoom() {
                 author={question.author}
                 key={question.id}
               >
-                <button>
-                  <img src={deleteImg} alt="Remover pergunta" onClick={() => handleDeleteQuestion(question.id)}/>
+                <button onClick={handleOpenModal}>
+                  <img src={deleteImg} alt="Remover pergunta" />
                 </button>
+                <Modal
+                  isOpen={openModal}
+                  onRequestClose={handleCloseModal}
+                  overlayClassName="react-modal-overlay"
+                  className="react-modal-content"
+                >
+                  <div className="icon-container">
+                    <img src={deleteImg} alt="Remover Pergunta" />
+                    <span>Excluir pergunta</span>
+                    <p>Tem certeza que deseja excluir esta pergunta?</p>
+                  </div>
+                  <div className="buttons-container">
+                    <button className="cancel-btn" onClick={handleCloseModal}>Cancelar</button>
+                    <button className="confirm-btn" onClick={() => handleDeleteQuestion(question.id)}>Sim, excluir</button>
+                  </div>
+                </Modal>
               </Question>
             );
           })}
