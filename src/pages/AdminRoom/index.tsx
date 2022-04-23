@@ -1,3 +1,4 @@
+import { database } from "../../services/firebase";
 import { useHistory, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useRoom } from "../../hooks/useRoom";
@@ -9,7 +10,6 @@ import logoImg from "../../assets/images/logo.svg";
 import deleteImg from "../../assets/images/delete.svg";
 
 import "./styles.scss";
-import { database } from "../../services/firebase";
 
 type RoomParams = {
   id: string;
