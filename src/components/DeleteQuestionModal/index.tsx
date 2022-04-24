@@ -12,12 +12,10 @@ interface DeleteQuestionModalProps {
 }
 
 export function DeleteQuestionModal({roomId, questionId, isOpenModal, closeModal} : DeleteQuestionModalProps) {
-
   async function handleDeleteQuestion(questionId: string) {
     database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     await closeModal();
   }
-
   return (
     <Modal
       isOpen={isOpenModal}
